@@ -1,0 +1,46 @@
+📘 4️⃣ member_books
+
+Purpose: List all books issued to a specific member.
+
+CREATE OR REPLACE PROCEDURE member_books(IN m_id INT)
+BEGIN
+    SELECT i.issue_id, b.title, b.author, i.issue_date, i.return_date
+    FROM issues i
+    JOIN books b ON i.book_id = b.book_id
+    WHERE i.member_id = m_id;
+END;
+
+
+To execute:
+
+CALL member_books(2);
+
+
+Explanation:
+Displays all books issued by the given member along with their issue and return dates.
+
+📗 5️⃣ delete_inactive_members
+
+Purpose: Delete members who haven’t borrowed any book in the past 1 year.
+
+CREATE OR REPLACE PROCEDURE delete_inactive_members()
+BEGIN
+    DELETE FROM members
+    WHERE member_id NOT IN (
+        SELECT DISTINCT member_id
+        FROM issues
+        WHERE issue_date >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+    );
+    SELECT 'Inactive members deleted successfully!' AS Message;
+END;
+
+
+To execute:
+
+CALL delete_inactive_members();
+
+
+Explanation:
+Removes all members who haven’t borrowed a book in the last 12 months.
+
+Would you like me to reformat the first three library procedures in this same consistent “CREATE OR REPLACE” style too, so you can have all five in one perfect matching format for your lab report?
