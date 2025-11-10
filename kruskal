@@ -1,0 +1,118 @@
+/* Kruskal's Minimum Spanning Tree Algorithm - Turbo C compatible */
+
+#include <stdio.h>
+#include <conio.h>
+
+#define MAX 20
+#define INF 9999
+
+typedef struct {
+    int u, v, w;
+} Edge;
+
+int parent[MAX];
+
+int find_set(int i) {
+    while (parent[i] != i)
+        i = parent[i];
+    return i;
+}
+
+void union_set(int a, int b) {
+    int pa = find_set(a);
+    int pb = find_set(b);
+    parent[pb] = pa;
+}
+
+void kruskal(int cost[MAX][MAX], int n) {
+    Edge edges[MAX * MAX];
+    int i, j, k = 0;
+    int total_cost = 0;
+    int ne = 0;
+
+    /* Build edge list */
+    for (i = 1; i <= n; i++) {
+        for (j = i + 1; j <= n; j++) {
+            if (cost[i][j] != INF && cost[i][j] != 0) {
+                edges[k].u = i;
+                edges[k].v = j;
+                edges[k].w = cost[i][j];
+                k++;
+            }
+        }
+    }
+
+    /* Sort edges by weight (Bubble Sort) */
+    for (i = 0; i < k - 1; i++)
+        for (j = 0; j < k - 1 - i; j++)
+            if (edges[j].w > edges[j + 1].w) {
+                Edge temp = edges[j];
+                edges[j] = edges[j + 1];
+                edges[j + 1] = temp;
+            }
+
+    for (i = 1; i <= n; i++)
+        parent[i] = i;
+
+    printf("\nEdges in the Minimum Spanning Tree (Kruskal's):\n");
+    i = 0;
+    while (ne < n - 1 && i < k) {
+        int u = edges[i].u;
+        int v = edges[i].v;
+        int w = edges[i].w;
+        int pu = find_set(u);
+        int pv = find_set(v);
+
+        if (pu != pv) {
+            printf("%d -- %d  weight = %d\n", u, v, w);
+            union_set(pu, pv);
+            total_cost += w;
+            ne++;
+        }
+        i++;
+    }
+
+    printf("\nTotal cost of MST (Kruskal) = %d\n", total_cost);
+}
+
+int main() {
+    int cost[MAX][MAX];
+    int n, i, j;
+
+    clrscr();
+    printf("Kruskal's Algorithm - Minimum Spanning Tree\n");
+    printf("-------------------------------------------\n");
+    printf("Enter number of vertices: ");
+    scanf("%d", &n);
+
+    printf("\nEnter adjacency matrix (use 9999 for no edge):\n");
+    for (i = 1; i <= n; i++)
+        for (j = 1; j <= n; j++)
+            scanf("%d", &cost[i][j]);
+
+    kruskal(cost, n);
+
+    printf("\nPress any key to exit...");
+    getch();
+    return 0;
+}
+
+
+Enter number of vertices: 5
+Enter adjacency matrix (use 9999 for no edge):
+0 2 9999 6 9999
+2 0 3 8 5
+9999 3 0 9999 7
+6 8 9999 0 9
+9999 5 7 9 0
+
+
+Edges in the Minimum Spanning Tree (Kruskal's):
+1 -- 2  weight = 2
+2 -- 3  weight = 3
+2 -- 5  weight = 5
+1 -- 4  weight = 6
+
+Total cost of MST (Kruskal) = 16
+
+
