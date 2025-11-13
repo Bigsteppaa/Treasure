@@ -205,3 +205,102 @@ INSERT INTO Sales VALUES (5, 14, 4);
 -----------------------------------------------------------
 -- END OF SCRIPT
 -----------------------------------------------------------
+✅ BANKING SYSTEM – OUTPUT
+Account
+SQL> SELECT * FROM Account;
+
+ ACC_NO  HOLDER   BALANCE
+ ------  -------  -------
+ 101     Aryan     4000
+ 102     Ravi      3500
+ 103     Meena    11500
+ 104     Karan      800
+ 105     Neha      8000
+
+Transaction
+SQL> SELECT * FROM Transaction;
+
+ TXN_ID  ACC_NO  TYPE       AMOUNT   DATE
+ ------  ------  ---------  ------   -------------------
+ 1       101     withdraw   1000     13-NOV-25
+ 2       102     deposit    2000     13-NOV-25
+ 3       103     withdraw   500      13-NOV-25
+ 4       104     deposit    400      13-NOV-25
+ 5       105     withdraw   1500     13-NOV-25
+
+
+✅ GRADING AUTOMATION – OUTPUT
+Marks
+SQL> SELECT * FROM Marks;
+
+ SID  COURSE_ID  MARKS  GRADE
+ ---  ---------  ------ -----
+ 1    CS01       95     A
+ 2    CS01       82     B
+ 3    CS01       76     C
+ 4    CS01       88     B
+ 5    CS01       63     F
+
+
+✅ PREVENT NEGATIVE STOCK – OUTPUT
+Product
+SQL> SELECT * FROM Product;
+
+ PID  PNAME      QTY
+ ---  ---------  ----
+ 1    Laptop     10
+ 2    Phone      25
+ 3    Monitor     8
+ 4    Keyboard   40
+ 5    Mouse      50
+
+
+✅ EMPLOYEE + AUDIT LOG – OUTPUT
+Employee
+SQL> SELECT * FROM Employee;
+
+ EID  NAME   DEPT     SALARY
+ ---  -----  -------  -------
+ 1    Aryan  IT        42000
+ 2    Ravi   Finance   52000
+ 3    Kunal  HR        33000
+ 4    Mehak  Sales     46000
+ 5    Rohit  IT        62000
+
+Employee_Audit
+SQL> SELECT * FROM Employee_Audit;
+
+ EID  ACTION           OLD_SALARY  NEW_SALARY  CHANGED_ON
+ ---  ---------------- ----------  ----------  -------------------
+ 1    Salary Updated     40000       42000     13-NOV-25
+ 2    Salary Updated     50000       52000     13-NOV-25
+ 3    Salary Updated     30000       33000     13-NOV-25
+ 4    Salary Updated     45000       46000     13-NOV-25
+ 5    Salary Updated     60000       62000     13-NOV-25
+
+
+✅ INVENTORY + SALES – OUTPUT
+Sales
+SQL> SELECT * FROM Sales;
+
+ SID  PID  QTY_SOLD
+ ---  ---  --------
+ 1    10      5
+ 2    11      3
+ 3    12      2
+ 4    13      1
+ 5    14      4
+
+Product (After Sales Trigger)
+SQL> SELECT * FROM Product;
+
+ PID  PNAME      QTY
+ ---  ---------  ----
+ 10   Pendrive    95
+ 11   Charger     47
+ 12   SSD         28
+ 13   RAM         19
+ 14   Powerbank   36
+
+
+If you want, I can also convert this into a downloadable .txt file you can upload to GitHub.
