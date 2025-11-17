@@ -1,0 +1,163 @@
+/* Optimal Binary Search Tree - Turbo C SAFE version */
+
+#include <stdio.h>
+#include <conio.h>
+
+#define MAX 10
+#define INF 99999
+
+int main() {
+    int n, i, j, k, L;
+    int freq[MAX+1];
+    int cost[MAX+1][MAX+1];
+    int sum, left, right, val;
+
+    clrscr();
+    printf("Optimal Binary Search Tree\n");
+    printf("--------------------------\n");
+
+    printf("Enter number of keys (max %d): ", MAX);
+    scanf("%d", &n);
+
+    printf("Enter frequencies:\n");
+    for (i = 1; i <= n; i++)
+        scanf("%d", &freq[i]);
+
+    /* Initialize cost matrix */
+    for (i = 1; i <= n; i++) {
+        for (j = 1; j <= n; j++)
+            cost[i][j] = 0;
+        cost[i][i] = freq[i];
+    }
+
+    /* L = chain length */
+    for (L = 2; L <= n; L++) {
+        for (i = 1; i <= n - L + 1; i++) {
+            j = i + L - 1;
+            cost[i][j] = INF;
+
+            /* sum frequencies from i to j */
+            sum = 0;
+            for (k = i; k <= j; k++)
+                sum += freq[k];
+
+            /* try each root */
+            for (k = i; k <= j; k++) {
+                if (k > i) left = cost[i][k-1];
+                else left = 0;
+
+                if (k < j) right = cost[k+1][j];
+                else right = 0;
+
+                val = left + right + sum;
+
+                if (val < cost[i][j])
+                    cost[i][j] = val;
+            }
+        }
+    }
+
+    printf("\nMinimum cost of Optimal BST = %d\n", cost[1][n]);
+
+    printf("\nPress any key to exit...");
+    getch();
+    return 0;
+}
+
+
+
+
+
+2ne one
+/* 0/1 Knapsack - Turbo C SAFE version */
+
+#include <stdio.h>
+#include <conio.h>
+
+#define MAXN 10
+#define MAXW 30
+
+int max(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+int main() {
+    int n, W;
+    int wt[MAXN+1], val[MAXN+1];
+    int dp[MAXN+1][MAXW+1];
+    int i, j;
+
+    clrscr();
+    printf("0/1 Knapsack Problem\n");
+    printf("--------------------\n");
+
+    printf("Enter number of items (max %d): ", MAXN);
+    scanf("%d", &n);
+
+    printf("Enter weights:\n");
+    for (i = 1; i <= n; i++)
+        scanf("%d", &wt[i]);
+
+    printf("Enter profits:\n");
+    for (i = 1; i <= n; i++)
+        scanf("%d", &val[i]);
+
+    printf("Enter knapsack capacity (max %d): ", MAXW);
+    scanf("%d", &W);
+
+    /* initialize DP table */
+    for (i = 0; i <= n; i++)
+        for (j = 0; j <= W; j++)
+            dp[i][j] = 0;
+
+    for (i = 1; i <= n; i++) {
+        for (j = 1; j <= W; j++) {
+            if (wt[i] <= j)
+                dp[i][j] = max(val[i] + dp[i-1][j-wt[i]], dp[i-1][j]);
+            else
+                dp[i][j] = dp[i-1][j];
+        }
+    }
+
+    printf("\nMaximum Profit = %d\n", dp[n][W]);
+
+    printf("\nPress any key to exit...");
+    getch();
+    return 0;
+}
+✅ 1) Optimal Binary Search Tree – Sample Input/Output
+📌 Sample Input
+Enter number of keys (max 10): 4
+Enter frequencies:
+4 2 6 3
+
+📌 Sample Output
+Minimum cost of Optimal BST = 26
+
+📘 Explanation (short, if needed):
+
+The DP table calculates all possible root selections and sums frequencies.
+Final minimum search cost = 26.
+
+✅ 2) 0/1 Knapsack – Sample Input/Output
+📌 Sample Input
+Enter number of items (max 10): 3
+Enter weights:
+10 20 30
+Enter profits:
+60 100 120
+Enter knapsack capacity (max 30): 50
+
+📌 Sample Output
+Maximum Profit = 220
+
+📘 Explanation (short):
+
+Knapsack can include:
+
+Item 2 (w=20, p=100)
+
+Item 3 (w=30, p=120)
+
+Total weight = 50
+Total profit = 100 + 120 = 220
